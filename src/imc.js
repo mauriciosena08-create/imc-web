@@ -12,7 +12,7 @@ export function classificarIMC(imc) {
     throw new RangeError('IMC inválido');
   }
   if (imc < 18.5) return 'Baixo peso';
-  if (imc < 25) return 'Peso adequado';
+  if (imc <= 25) return 'Peso adequado';
   if (imc < 30) return 'Sobrepeso';
   return 'Obesidade';
 }
