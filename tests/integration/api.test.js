@@ -51,3 +51,19 @@ test('API rejeita método GET na rota de cálculo', async () => {
     assert.equal(resposta.status, 405);
   });
 });
+
+test('regressão na API: IMC 25 deve ser Sobrepeso', async () => {
+  await comServidor(async base => {
+    const resposta = await fetch(`${base}/api/imc`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ peso: 100, altura: 2 })
+    });
+
+    assert.equal(resposta.status, 200);
+    assert.deepEqual(await resposta.json(), {
+      imc: 25,
+      situacao: 'Sobrepeso'
+    });
+  });
+});
